@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Alata&display=swap");
+
+.image {
+    position: absolute;
+    width: 881px;
+    height: 1024px;
+    left: 0px;
+    top: 0px;
+    filter: brightness(80%);
+}
+
+.logo {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 1325px;
+    top: 12px;
+}
+
+.pbook {
+    position: absolute;
+    width: 510px;
+    height: 318px;
+    left: 56px;
+    top: 88px;
+    
+    font-family: 'Alata', sans-serif;
+    font-size: 64px;
+    line-height: 83px;
+    font-weight: 700;
+    
+    color: #F9F9F9;
+}
+
+.pbook2 {
+    position: absolute;
+    width: 808px;
+    height: 318px;
+    left: 56px;
+    top: 160px;
+    
+    font-family: 'Alata', sans-serif;
+    font-size: 64px;
+    line-height: 83px;
+    
+    color: #F9F9F9;
+}
+
+.punplash {
+    position: absolute;
+    width: 378px;
+    height: 30px;
+    left: 29px;
+    top: 987px;
+
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 25px;
+
+    color: #FFFFFF;
+}
+

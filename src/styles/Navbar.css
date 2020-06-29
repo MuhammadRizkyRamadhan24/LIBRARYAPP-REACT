@@ -1,0 +1,46 @@
+.nav{
+    border-bottom: ridge;
+    width: 100%;
+}
+
+.dropdown{
+    left: 86px;
+}
+
+.form{
+    width: -webkit-fill-available;
+}
+
+.content-search{
+    padding: 0px 0px;
+}
+
+.content-search .input-search{
+    height: 50px;
+    color: black;
+    font-weight: 500;
+    margin-bottom: -1rem;
+    border-radius: 50px;
+}
+
+.content-logo{
+    right: 20px;
+    padding: 0px 47px;
+    margin-left: 230px;
+}
+
+.content-logo .nav-logo{
+    position: relative;
+    right: 70px;
+}
+
+.content-logo .logo{
+    width: 50px;
+}
+
+.content-logo .logo-text{
+    color: black !important;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: sans-serif;
+}

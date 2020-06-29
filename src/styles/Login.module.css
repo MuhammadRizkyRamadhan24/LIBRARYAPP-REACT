@@ -1,0 +1,15 @@
+.username{
+    position: absolute;
+    width: 417px;
+    height: 80px;
+    left: 960px;
+    top: 396px;
+}
+
+.password{
+    position: absolute;
+    width: 417px;
+    height: 80px;
+    left: 960px;
+    top: 476px;
+}

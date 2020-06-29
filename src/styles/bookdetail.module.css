@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Alata&display=swap");
+
+.headline {
+    padding: 0px !important;
+}
+
+.headline .jumbotron {
+    background-size: cover !important;
+    height: 65vh !important;
+    padding: 0px 0px !important;
+}
+
+.buttonadmin{
+    position: absolute;
+    right: 0px;
+    width: 210px;
+    padding: 15px 0px;
+}
+
+.buttonadmin .button{
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+}
+
+.modal {
+    width: 780px;
+    height: 780px;
+}
+.modal .headeredit {
+    position: relative;
+    font-family: 'Alata', sans-serif;
+    font-size: 40px;
+    text-align: center;
+    padding: 5px;
+}
+.modal .contentedit {
+    width: 100%;
+    padding: 0px 60px;
+    position: absolute;
+}
+
+.modal .titlelable{
+    font-size: 25px;
+}
+
+.modal .edittitle{
+    height: 60px;
+}
+
+.modal .editdescription{
+    height: 220px;
+}
+
+.modal .submit{
+    background-color: #e4ba33;
+    border: none;
+    font-family: 'Montserrat',
+    sans-serif;
+    font-weight: 500;
+}
+
+.jumbotron .cover{
+    height: 65vh;
+    width: 100%;
+}
+
+.description {
+    padding: 50px 100px 100px!important;
+}
+
+.description .title {
+    margin-bottom: 35px;
+}
+
+.description .title span {
+    color: white;
+    background-color: #e4ba33;
+    padding: 5px 20px;
+    border-radius: 20px;
+}
+
+.description .title h1 {
+    font-family: 'Open Sans',
+    sans-serif;
+    font-weight: 700;
+    margin-bottom: -5px !important;
+}
+
+.description .title small {
+    margin-left: 3px;
+    font-family: 'Open Sans',
+    sans-serif;
+}
+
+.description .status {
+    /* display: inline-flex;
+    align-items: center;
+    justify-content: center; */
+    text-align: right;
+}
+
+.description .status p {
+    margin-top: 40px;
+    color: #99d815;
+    font-family: 'Open Sans',
+    sans-serif;
+    font-weight: 800;
+}
+
+.description .text {
+    /* padding: 0px !important; */
+    font-family: 'Open Sans',
+    sans-serif;
+    text-align: justify;
+}
+
+
+.borrow {
+    text-align: center;
+    padding: 50px 70px 50px !important;
+    margin-bottom: 50px;
+}
+
+.borrow .image {
+    margin: auto;
+    border-radius: 14px;
+    margin-bottom: 50px;
+}
+
+.borrow .buttonWrapper {
+    width: 141.54px;
+    margin: auto;
+    position: relative;
+}
+
+.borrow .button {
+    background-color: #e4ba33;
+    padding: 10px 40px;
+    border: none;
+    font-family: 'Montserrat',
+    sans-serif;
+    font-weight: 700;
+}

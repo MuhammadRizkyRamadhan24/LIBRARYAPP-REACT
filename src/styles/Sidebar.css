@@ -1,0 +1,23 @@
+.sidebar-content{
+    left: 40px;
+    position: relative;
+    border-bottom: none;
+    padding: 49px !important;
+    height: 100vh;
+}
+
+.sidebar-content .navitem-profile{
+    position: relative;
+    top: 80px;
+}
+
+.sidebar-content .navitem-link{
+    position: relative;
+    top: 100px;
+}
+
+.sidebar-content .navitem-link a{
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
