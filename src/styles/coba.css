@@ -73,6 +73,10 @@
     margin-top: -17px;
 }
 
+.content-login .input-login.login-role {
+    margin-top: -34px;
+}
+
 .content-login .btn {
     margin-top: 30px;
     font-size: 14px;
