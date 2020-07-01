@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { Col, Container ,Button, Form, FormGroup, Label, Input, FormText, FormFeedback, Row } from 'reactstrap';
-import { Redirect } from 'react-router-dom';
+import { Col, Container ,Button, Form, FormGroup, Label, Input, FormFeedback, Row } from 'reactstrap';
 import axios from 'axios';
-import imageBackground from '../assets/backgroundImage.png';
 import LeftLoginRegister from '../components/LeftLoginRegister';
 import RightLoginRegister from '../components/RightLoginRegister';
-import logo from '../assets/logo.png';
-import '../styles/coba.css'
+import Swal from 'sweetalert2';
+import '../styles/coba.css';
 
 class Login extends Component{
     constructor(props){
@@ -38,6 +36,8 @@ class Login extends Component{
             console.log(data)
             if(data.role === 1) {
                 localStorage.setItem('token', data.token);
+                localStorage.setItem('username', data.username);
+                console.log(data.username);
                 return this.goToHome();
             } else {
                 localStorage.setItem('token', data.token);
@@ -46,7 +46,12 @@ class Login extends Component{
         })
         .catch((error)=>{
             console.log(error);
-            alert('Username Dan Password Salah!')
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Username dan password salah!',
+                confirmButtonColor: '#000000',
+            })
         })
     }
 
