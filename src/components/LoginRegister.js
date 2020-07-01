@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Col, Row, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import styles from '../styles/LoginRegister.module.css';
 import imageBackground from '../assets/backgroundImage.png';
 import logo from '../assets/logo.png';

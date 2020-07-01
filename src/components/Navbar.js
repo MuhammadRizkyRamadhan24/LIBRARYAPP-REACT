@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import  '../styles/Navbar.css';
 import logo from '../assets/logo.png';
 import {
     Collapse,
     Navbar,
-    NavbarToggler,
     NavbarBrand,
     Nav,
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
-    NavbarText,
     Input,
     FormGroup,
     Col,
@@ -20,6 +18,24 @@ import {
   } from 'reactstrap';
 
 class NavBar extends Component{
+  constructor(props){
+    super(props);
+    this.state={
+      search:'',
+    }
+    console.log(this.props);
+  }
+
+  goToHome = () =>{
+    document.location.href='/';
+  }
+
+  redirect=(event)=> {
+    if (event.keyCode === 13) {
+     this.props.history.push(`/search?search=${this.state.search}`);
+    }
+  }
+
     render () {
         return (
             <>
@@ -63,6 +79,10 @@ class NavBar extends Component{
                     <Nav className="mr-auto" navbar>
                         <FormGroup className='form'>
                           <Input
+                            value={this.state.search}
+                            onKeyDown={(e) => this.redirect(e)}
+                            onChange={(e) => this.setState({search: e.target.value})}
+
                             type='text'
                             name='search'
                             placeholder='Search Book'
@@ -76,7 +96,7 @@ class NavBar extends Component{
                 <Col md='3'>
                   <div className='content-logo'>
                     <Nav className="mr-auto" navbar>
-                        <NavbarBrand href="/login" className='nav-logo'><img className='logo' src={logo}/></NavbarBrand>
+                        <NavbarBrand onClick={this.goToHome} className='nav-logo'><img className='logo' src={logo}/></NavbarBrand>
                     </Nav>
                   </div>
                 </Col>

@@ -1,22 +1,20 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Home from './pages/Home';
-import About from './pages/About';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import ProductDetail from './pages/ProductDetail';
 import BookDetail from './pages/BookDetail';
+import Search from './pages/Search';
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route path='/about' component={About} />
-        <Route path='/product/:productName' component={ProductDetail}/>
-        <Route path='/login' exact component={Login} />
         <Route path='/' exact component={Home} />
-        <Route path='/register' exact component={Register} />
-        <Route path='/bookdetail' exact component={BookDetail} />
+        <Route path='/login'component={Login} />
+        <Route path='/register' component={Register} />
+        <Route path='/bookdetail/:id' component={BookDetail} />
+        <Route path='/search' component={Search} />
       </Switch>
     </Router>
   );
