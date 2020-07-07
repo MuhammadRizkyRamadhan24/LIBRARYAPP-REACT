@@ -4,9 +4,10 @@ import Popup from "reactjs-popup";
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import style from '../styles/bookdetail.module.css';
-import ClipLoader from "react-spinners/ClipLoader";
 import Skeleton from 'react-loading-skeleton';
-import Back from '../assets/back.png'
+import Back from '../assets/back.png';
+
+import { connect } from 'react-redux';
 
 
 class BookDetail extends Component{
@@ -18,6 +19,10 @@ class BookDetail extends Component{
             description:'',
             bookImage:'',
             username:'',
+            author : '',
+            genre : '',
+            authors : [],
+            genres : [],
             isLoading: true,
         }
         console.log(this.props.match.params.id);
@@ -29,11 +34,16 @@ class BookDetail extends Component{
         event.preventDefault();
         console.log(this.state);
         const formData = new FormData();
-        const token = localStorage.getItem('token');
+        // const token = localStorage.getItem('token');
+        const token = this.props.auth.data.token
         const id = this.props.match.params.id;
+        const status = 'ada';
         formData.append('title', this.state.title);
         formData.append('description', this.state.description);
         formData.append('bookImage', this.state.bookImage[0]);
+        formData.append('id_author', this.state.author);
+        formData.append('id_genre', this.state.genre);
+        formData.append('status', status)
         console.log(this.state);
         axios({
             method: 'PUT',
@@ -71,16 +81,57 @@ class BookDetail extends Component{
         })
       }
     
+      getAuthor = () => {
+        // const token = localStorage.getItem('token')
+        const token = this.props.auth.data.token
+          axios({
+            method : "GET",
+            url : 'http://localhost:3000/authors',
+            headers : {
+              Authorization : token
+            }
+          })
+          .then((res) => {
+            this.setState({
+              authors : res.data.data
+            })
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+       }
+       getGenre = () => {
+        const token = localStorage.getItem('token')
+        axios({
+          method : "GET",
+          url : 'http://localhost:3000/genres',
+          headers : {
+            Authorization : token
+          }
+        })
+        .then((res) => {
+          this.setState({
+            genres : res.data.data
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+       }
+
     borrowBook = (event) => {
         event.preventDefault();
-        const token = localStorage.getItem('token');
+        // const token = localStorage.getItem('token');
+        const token = this.props.auth.data.token
+        // const username = localStorage.getItem('username');
+        const username = this.props.auth.data.username
         console.log(this.state);
         axios({
             method: 'POST',
             url: `http://localhost:3000/books/borrow`,
             data: {
                 title: this.state.title,
-                username: this.state.username,
+                username: username,
             },
             headers: {
               Authorization: token
@@ -110,7 +161,8 @@ class BookDetail extends Component{
     }
 
     getBookById = () => {
-        const token = localStorage.getItem('token');
+        // const token = localStorage.getItem('token');
+        const token = this.props.auth.data.token
         const id = this.props.match.params.id;
         axios({
             method: 'GET',
@@ -134,7 +186,8 @@ class BookDetail extends Component{
     }
 
     deleteData = () =>{
-        const token = localStorage.getItem('token');
+        // const token = localStorage.getItem('token');
+        const token = this.props.auth.data.token
         const id = this.props.match.params.id;
         axios({
             method: 'DELETE',
@@ -172,6 +225,8 @@ class BookDetail extends Component{
 
     componentDidMount(){
         this.getBookById();
+        this.getAuthor();
+        this.getGenre();
     }
 
     render(){
@@ -197,6 +252,24 @@ class BookDetail extends Component{
                                                         <Input name='description' onChange={(e) => this.setState({description :e.target.value})} className={style.editdescription} type="textarea" placeholder="Description Books" />
                                                     </FormGroup>
                                                     <FormGroup>
+                                                    <Label>Author</Label>
+                                                    <Input type="select" name="author" value={this.state.author} onChange={(e) => this.setState({author : e.target.value})} >
+                                                        <option value="0">Pilih Author</option>
+                                                        {this.state.authors.map((author) => {
+                                                            return <option key={author.id_author} value={author.id_author}>{author.author}</option>
+                                                        })}
+                                                    </Input>
+                                                    </FormGroup>
+                                                    <FormGroup>
+                                                    <Label>Genre</Label>
+                                                    <Input type="select" name="genre" value={this.state.genre} onChange={(e) => this.setState({genre : e.target.value})} >
+                                                    <option value="0">Pilih Genre</option>
+                                                        {this.state.genres.map((value) => {
+                                                            return <option key={value.id_genre} value={value.id_genre}>{value.genre}</option>
+                                                        })}
+                                                    </Input>
+                                                    </FormGroup>
+                                                    <FormGroup>
                                                         <Label className={style.titlelable}>Photo Book</Label>
                                                         <Input name='bookImage' onChange={(e) => this.setState({bookImage :e.target.files})} type="file"/>
                                                     </FormGroup>
@@ -216,7 +289,6 @@ class BookDetail extends Component{
                         <Col md='8' className={style.description}>
                             <Row>
                                 <Col className={style.title}>
-                                    <span>Novel</span>
                                     <h1>{this.state.books[0].title}</h1>
                                     <small>{this.state.books[0].added_at}</small>
                                 </Col>
@@ -241,10 +313,6 @@ class BookDetail extends Component{
                                             <div className={style.contentedit}>
                                                 <Form onSubmit={this.borrowBook}>
                                                     <FormGroup>
-                                                        <Label className={style.titlelable}>Username</Label>
-                                                        <Input onChange={(e) => this.setState({username : e.target.value})} name='username' className={style.edittitle} type="text" placeholder="Username" />
-                                                    </FormGroup>
-                                                    <FormGroup>
                                                         <Label className={style.titlelable}>Title</Label>
                                                         <Input onChange={(e) => this.setState({title : e.target.value})} name='title' className={style.edittitle} type="text" placeholder="Title" />
                                                     </FormGroup>
@@ -263,4 +331,10 @@ class BookDetail extends Component{
     }
 }
 
-export default BookDetail;
+const mapStateToProps = state =>({
+    auth: state.auth
+});
+
+export default connect(mapStateToProps)(BookDetail);
+
+// export default BookDetail;

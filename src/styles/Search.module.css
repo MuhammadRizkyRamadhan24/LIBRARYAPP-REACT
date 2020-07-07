@@ -1,6 +1,13 @@
 .content{
     width: 100%;
-    top: 12vh;
+    top: 17vh;
     height: 92vh;
+    margin: 0px !important;
     position: relative;
+}
+
+.pagination{
+    width: 100%;
+    padding: 25px 627px;
+    margin: 0px;
 }

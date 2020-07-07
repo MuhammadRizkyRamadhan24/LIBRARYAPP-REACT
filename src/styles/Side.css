@@ -62,11 +62,10 @@
   margin-right: auto;
   margin-top: 5%;
 }
-.avatar li:first-child{
+.avatar img{
   width: 150px;
-  height: 150px;
-  background: url('../images/avatar.png');
-  border-radius: 150px;
+  left: 28%;
+  position: relative;
 }
 
 .hamburger{

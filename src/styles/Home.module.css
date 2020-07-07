@@ -84,7 +84,7 @@
     top: 8vh;
     width: 1000px;
     position: relative;
-    left: 16%;
+    left: 14%;
 }
 
 .sizeCard{
@@ -130,4 +130,11 @@
 
 .slick-slide{
     width: 540px !important;
+}
+
+.sortWrapper{
+    top: 8vh;
+    position: relative;
+    height: 6vh;
+    right: 0px;
 }

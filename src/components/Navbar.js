@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from "react-router-dom";
 import  '../styles/Navbar.css';
 import logo from '../assets/logo.png';
 import {
@@ -23,7 +22,7 @@ class NavBar extends Component{
     this.state={
       search:'',
     }
-    console.log(this.props);
+    // console.log(this.props);
   }
 
   goToHome = () =>{

@@ -6,6 +6,9 @@ import RightLoginRegister from '../components/RightLoginRegister';
 import Swal from 'sweetalert2';
 import '../styles/coba.css';
 
+import { connect } from 'react-redux';
+import { login } from '../redux/actions/auth';
+
 class Login extends Component{
     constructor(props){
         super(props)
@@ -21,38 +24,46 @@ class Login extends Component{
 
     handleLogin = (event) => {
         event.preventDefault();
-        axios({
-            method: 'POST',
-            url: 'http://localhost:3000/auth/login',
-            data: {
-                username: this.state.username,
-                password: this.state.password
-            }
-        })
-        .then((response)=>{
-            console.log(response)
-            let data = response.data.data[0];
+        const data = {
+            username: this.state.username,
+            password: this.state.password
+        };
+        this.props.login(data).then(() => {
+            this.props.history.push('/');
+        });
 
-            console.log(data)
-            if(data.role === 1) {
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('username', data.username);
-                console.log(data.username);
-                return this.goToHome();
-            } else {
-                localStorage.setItem('token', data.token);
-                return this.goToHome();
-            }
-        })
-        .catch((error)=>{
-            console.log(error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Username dan password salah!',
-                confirmButtonColor: '#000000',
-            })
-        })
+        // axios({
+        //     method: 'POST',
+        //     url: 'http://localhost:3000/auth/login',
+        //     data: {
+        //         username: this.state.username,
+        //         password: this.state.password
+        //     }
+        // })
+        // .then((response)=>{
+        //     console.log(response)
+        //     let data = response.data.data[0];
+
+        //     console.log(data)
+        //     if(data.role === 1) {
+        //         localStorage.setItem('token', data.token);
+        //         localStorage.setItem('username', data.username);
+        //         return this.goToHome();
+        //     } else {
+        //         localStorage.setItem('token', data.token);
+        //         localStorage.setItem('username', data.username);
+        //         return this.goToHome();
+        //     }
+        // })
+        // .catch((error)=>{
+        //     console.log(error);
+        //     Swal.fire({
+        //         icon: 'error',
+        //         title: 'Oops...',
+        //         text: 'Username dan password salah!',
+        //         confirmButtonColor: '#000000',
+        //     })
+        // });
     }
 
     goToRegister = () =>{
@@ -64,6 +75,7 @@ class Login extends Component{
     }
 
     render(){
+        // console.log(this.props.auth); redux
         return(
             <div className='login-area'>
             <Container fluid>
@@ -117,4 +129,11 @@ class Login extends Component{
     }
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+    auth: state.auth
+});
+
+const mapDispatchToProps = {login}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login);
+// export default Login;
