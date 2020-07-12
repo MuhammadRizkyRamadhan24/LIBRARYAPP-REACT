@@ -28,3 +28,9 @@ export const register = data =>{
         })
     };
 };
+
+export const logOut = () => {
+    return {
+      type: "LOGOUT"
+    };
+};

@@ -54,6 +54,14 @@
   font-size: 1.7em; 
 }
 
+.navigator .li{
+  margin-top: 15%;
+  font-weight: 600;
+  font-size: 1.7em;
+  color: black;
+  text-decoration: none;
+}
+
 .avatar li{
   text-align: center;
   font-weight: 700;

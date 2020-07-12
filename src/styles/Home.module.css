@@ -133,8 +133,20 @@
 }
 
 .sortWrapper{
-    top: 8vh;
+    top: 14vh;
     position: relative;
-    height: 6vh;
+    height: 10vh;
     right: 0px;
+}
+
+.buttonPrev{
+    position: relative;
+    margin: 0px !important;
+    height: 6vh;
+}
+
+.buttonNext{
+    position: relative;
+    margin: 0px !important;
+    height: 6vh;
 }

@@ -11,3 +11,9 @@
     padding: 25px 627px;
     margin: 0px;
 }
+
+.tableWrapper{
+    position: relative;
+    left: 3%;
+    width: 94% !important;
+}

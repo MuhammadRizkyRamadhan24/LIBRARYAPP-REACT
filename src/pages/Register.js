@@ -31,39 +31,24 @@ class Register extends Component{
             role: this.state.role
         }
         this.props.register(data).then(() => {
-            this.props.history.push('/login');
+            Swal.fire({
+                icon: 'success',
+                title: 'Register success',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              .then(()=>{
+                this.props.history.push('/login');
+              })
+        }).catch((error)=>{
+            console.log(error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Register error',
+                confirmButtonColor: '#000000',
+            })
         });
-
-        // axios({
-        //     method: 'POST',
-        //     url: 'http://localhost:3000/auth/register',
-        //     data: {
-        //         username: this.state.username,
-        //         password: this.state.password,
-        //         role: this.state.role
-        //     }
-        // })
-        // .then((response)=>{
-        //     console.log(response)
-        //     Swal.fire({
-        //         icon: 'success',
-        //         title: 'Register success',
-        //         showConfirmButton: false,
-        //         timer: 1500
-        //     })
-        //       .then(()=>{
-        //         document.location.href='/login'
-        //     })
-        // })
-        // .catch((error)=>{
-        //     console.log(error);
-        //     Swal.fire({
-        //         icon: 'error',
-        //         title: 'Oops...',
-        //         text: 'Register error',
-        //         confirmButtonColor: '#000000',
-        //     })
-        // })
     }
 
 
@@ -101,15 +86,6 @@ class Register extends Component{
                                         value={this.state.password} onChange={(e) => this.setState({password: e.target.value})}
                                     />
                                 </FormGroup>
-                                {/* <FormGroup>
-                                    <Input
-                                        type='text'
-                                        name='role'
-                                        placeholder='1=Admin 0=User'
-                                        className='input-login login-password'
-                                        value={this.state.role} onChange={(e) => this.setState({role: e.target.value})}
-                                    />
-                                </FormGroup> */}
                                 <FormGroup check>
                                     <Label check className='login-checkbox'>
                                         <Input
@@ -138,5 +114,3 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {register}
 
 export default connect(mapStateToProps,mapDispatchToProps)(Register);
-
-// export default Register;

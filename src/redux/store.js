@@ -10,6 +10,7 @@ import rootReducer from './reducers'
 const persistConfig = {
     key: "root",
     storage,
+    whitelist: ["auth"]
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -22,8 +23,3 @@ const store = createStore(
 const persistor = persistStore(store)
 
 export default {store, persistor};
-
-// export default createStore(
-//     rootReducer,
-//     applyMiddleware(promiseMiddleware, logger)
-// );

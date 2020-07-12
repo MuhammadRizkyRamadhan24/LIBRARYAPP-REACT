@@ -50,9 +50,21 @@ const auth = (state = initialState, action) => {
                 isError: false,
                 data: action.payload.data.data[0]
             }
+
+        case "LOGOUT":
+        return {
+            ...state,
+            isLoading: false,
+            isError: false,
+            errorMsg: "",
+            data: {}
+        };
+
         default:
             return state;
-    }
+        }
+
+    
 }
 
 export default auth

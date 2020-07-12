@@ -5,22 +5,22 @@ const initialState = {
     data: {}
 }
 
-const addData = (state = initialState, action) => {
+const returnTheBook = (state = initialState, action) => {
     switch(action.type){
-        case "ADDBOOK_PENDING":
+        case "RETURNBOOK_PENDING":
             return {
                 ...state,
                 isLoading: true,
                 isError: false
             }
-        case "ADDBOOK_REJECTED":
+        case "RETURNBOOK_REJECTED":
             return {
                 ...state,
                 isLoading: false,
                 isError: true,
                 errorMsg: 'Data Rejected'
             }
-        case "ADDBOOK_FULFILLED":
+        case "RETURNBOOK_FULFILLED":
         console.log(action.payload.data.data[0]);
             return {
                 ...state,
@@ -34,4 +34,4 @@ const addData = (state = initialState, action) => {
     }
 }
 
-export default addData;
+export default returnTheBook;
