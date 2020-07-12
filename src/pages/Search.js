@@ -1,16 +1,17 @@
 import React, { Component , useState } from 'react';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Side';
-import { Button, Container, Row, Col, Card, CardText, CardBody, Form, Input} from 'reactstrap';
-import { Link } from 'react-router-dom'
-import axios from 'axios';
+import Cards from '../components/card';
+import { Button, Container, Row, Col, Form, Input} from 'reactstrap';
 import style from '../styles/Home.module.css';
 import Style from '../styles/Search.module.css'
-import Swal from 'sweetalert2';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Skeleton from 'react-loading-skeleton';
-import QueryString from "query-string"
+import QueryString from "query-string";
+
+import { connect } from 'react-redux';
+import { getSearch } from '../redux/actions/books';
 
 class Search extends Component{
     constructor(props) {
@@ -18,62 +19,29 @@ class Search extends Component{
         this.state ={
             books: [],
             isLoading: true,
+            isLoadingCard: true,
             page:'',
             order:'',
             sort:'',
         }
-        // console.log(this.state);
     }
 
     getSearchBooks = () => {
-        let qs = QueryString.parse(this.props.location.search);
-        console.log(qs,['sdj  sd']);
-        let search = qs.search || ""
-        let limit = qs.limit || "20"
-        let page = qs.page || ""
-        let order = qs.order || "added_at"
-        let sort = qs.sort || "ASC"
-        const token = localStorage.getItem('token');
-        // const query = this.props.location.search;
-        // console.log(query);
-        axios({
-            method: 'GET',
-            url: `http://localhost:3000/books/search?search=${search}&order=${order}&sort=${sort}&limit=${limit}&page=${page}`,
-            headers: {
-                Authorization: token
-            }
-        })
-        .then((response)=>{
+        const qs = QueryString.parse(this.props.location.search);
+        const search = qs.search || ""
+        const limit = qs.limit || "3"
+        const page = qs.page || ""
+        const order = qs.order || "added_at"
+        const sort = qs.sort || "ASC"
+        const token = this.props.auth.data.token;
+        this.props.getSearch(token, search, order, sort, limit, page)
+        .then(()=>{
             this.setState({
-                books: response.data.data,
-                isLoading: false
-            });
-
-            console.log(this.state.books);
-        })
-        .catch((error)=>{
-            console.log(error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Buku tidak ada!',
-                confirmButtonColor: '#000000',
+                isLoadingCard: this.props.book.isLoading,
+                books: this.props.book.data
             })
-            // .then(()=>{
-            //     this.props.history.push('/');
-            // })
-        })
+        });
     }
-
-    getDataLogin = () =>{
-        return localStorage.getItem('username');
-    }
-
-    // pagination = (e) =>{
-    //     this.setState({page: e.target.id}, () => {
-    //             this.props.history.push(`${this.props.location.search}&page=${this.state.page}`)
-    //     });
-    // }
 
     nextPage = (e) =>{
         let qs = QueryString.parse(this.props.location.search) 
@@ -109,8 +77,6 @@ class Search extends Component{
         } else {
             this.props.history.push(`${this.props.location.search}&order=${this.state.order}`)
         }
-        // this.props.history.push(`${this.props.location.search}&order=${this.state.order}&sort=${this.state.sort}`)
-        // const url = this.props.location.search.replace()
     }
 
     sort = (e) =>{
@@ -121,17 +87,7 @@ class Search extends Component{
         } else {
             this.props.history.push(`${this.props.location.search}&sort=${this.state.sort}`)
         }
-        // this.props.history.push(`${this.props.location.search}&order=${this.state.order}&sort=${this.state.sort}`)
-        // const url = this.props.location.search.replace()
     }
-
-    // prevPage = (e) =>{
-    //     let qs = QueryString.parse(this.props.location.search)
-    //     qs.page = qs.page ||  1
-    //     this.props.history.push(`${this.props.location.search}&page=${qs.page-1}`)
-    // }
-
-
 
     componentDidMount(){
         this.getSearchBooks();
@@ -153,7 +109,7 @@ class Search extends Component{
                     <Row className={style.homeWrapper}>
                         <Col md='12' style={{padding: '0px 0px'}}>
                             <Row className={style.header}>
-                                <Sidebar username={this.getDataLogin()} />
+                                <Sidebar username={this.props.auth.data.username} />
                                 <Col style={{padding: '0px 0px'}}>
                                 <Navbar history={this.props.history} />
                                 </Col>
@@ -161,83 +117,42 @@ class Search extends Component{
                             <Row className={style.sortWrapper}>
                                 <Form onSubmit={this.sortOrder}>
                                     <Input type='select' onChange={(e) => this.setState({order: e.target.value})} value={this.state.order}>
-                                        <option value="">Urutkan</option>
+                                        <option >Order</option>
                                         <option value="title">Judul</option>
                                         <option value="description">Deskripsi</option>
                                         <option value="genre">Genre</option>
                                         <option value="author">Penulis</option>
-                                        <option value="added_at">Ditambahan</option>
+                                        <option value="added_at">Ditambakan</option>
                                     </Input>
-                                    {/* <Input type='select' onChange={(e) => this.setState({sort: e.target.value})} value={this.state.sort}>
-                                        <option value="">Sort</option>
-                                        <option value="asc">ASC</option>
-                                        <option value="desc">DESC</option>
-                                    </Input> */}
                                     <Button color="warning" /*onClick={()=> this.props.history.push(`${this.props.location.search}&order=${this.state.order}&sort=${this.state.sort}`)}*/ onClick={this.sortOrder}>Urutkan</Button>
                                 </Form>
                                 <Form onSubmit={this.sort}>
                                     <Input type='select' onChange={(e) => this.setState({sort: e.target.value})} value={this.state.sort}>
-                                        <option value="">Sort</option>
-                                        <option value="asc">ASC</option>
-                                        <option value="desc">DESC</option>
+                                        <option >Sort</option>
+                                        <option value="asc">A - Z</option>
+                                        <option value="desc">Z - A</option>
                                     </Input>
                                     <Button color="warning" /*onClick={()=> this.props.history.push(`${this.props.location.search}&order=${this.state.order}&sort=${this.state.sort}`)}*/ onClick={this.sort}>Urutkan</Button>
                                 </Form>
+                                <Button className={style.buttonPrev} color="warning" disabled={disableButton} onClick={this.prevPage}>Prev</Button>
+                                <Button className={style.buttonNext} color="warning" onClick={this.nextPage}> Next</Button>
                             </Row>
-                            {this.state.isLoading ? 
+                            {this.state.isLoadingCard ? 
                             <Row className={Style.content}><Skeleton/></Row>
                              : <Row className={Style.content}>
                                     {this.state.books.map((value)=>{
                                         return (
-                                        <Col md="3" sm="4" xs="6">
-                                        <Card key={value.id} className={style.sizeCard}>
-                                            <div className={style.imgWrapper}>
-                                                <img src={`http://localhost:3000/static/images/${value.bookImage}`}/>
-                                            </div> 
-                                            <CardBody className={style.cardBody}>
-                                                <Link to={`/bookdetail/${value.id}`} className={style.cardTitle}>{value.title}</Link>
-                                                <CardText className={style.cardText}>Ketersediaan: {value.status}</CardText>
-                                            </CardBody>
-                                        </Card>
-                                        </Col>
+                                        <div key={value.id}>
+                                            <Cards data={value} />
+                                        </div>
                                         )
                                     })}
                             </Row>}
                             <Row>
                                 <Col md={12}>
-                                <Button color="warning" disabled={disableButton} className="mr-auto" onClick={this.prevPage}>Prev</Button>{"  "}
-                                <Button color="warning" className="ml-auto" onClick={this.nextPage}> Next</Button>
+                                
                                 </Col> 
                             </Row>
-                            {/* <Row className={Style.pagination}>
-                                <Pagination aria-label="Page navigation example">
-                                    <PaginationItem>
-                                        <PaginationLink id='1' value={this.state.page} onClick={this.pagination}>
-                                        1
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink id='2' value={this.state.page} onClick={this.pagination}>
-                                        2
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink value={3}>
-                                        3
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink value={4}>
-                                        4
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink value={5}>
-                                        5
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                </Pagination>
-                            </Row> */}
                         </Col>
                     </Row>
                 </Container>
@@ -246,4 +161,11 @@ class Search extends Component{
     }
 }
 
-export default Search
+const mapStateToProps = state =>({
+    auth: state.auth,
+    book: state.book
+});
+
+const mapDispatchToProps = { getSearch };
+
+export default connect(mapStateToProps,mapDispatchToProps)(Search);
