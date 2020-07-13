@@ -15,6 +15,7 @@ import { getAllAuthor } from '../redux/actions/getAuthor';
 import { returnBook } from '../redux/actions/borrowBook';
 import { logout } from '../redux/actions/logout';
 import localStorage from 'redux-persist/es/storage';
+import Skeleton from 'react-loading-skeleton';
 
 function Profile(props) {
   const [title, setTitle] = useState('');
@@ -22,7 +23,10 @@ function Profile(props) {
   const [bookImage, setBookImage] = useState('');
   const [author, setAuthor] =useState('');
   const [genre, setGenre] =useState('');
-  const [authors, setAuthors] =useState([]);
+  const [isLoadingContent, setIsLoadingContent] = useState(false);
+
+  const [authors, setAuthors] =useState('');
+
   const [genres, setGenres] =useState([]);
 
   const [active, setInactive] = useState(false);
@@ -97,10 +101,8 @@ function Profile(props) {
   const getDataAuthor = () => {
     const token = props.auth.data.token
     props.getAllAuthor(token).then(() => {
-        // setAuthors(props.getAuthor.data);
-        // console.log(props.getAuthor.data,'author')
+        setAuthors(props.getAuthor.data);
     })
-    console.log(props.getAuthor.data,'author')
    }
    
   const getDataGenre = () => {
@@ -117,7 +119,7 @@ function Profile(props) {
 
 useEffect (()=>{
   getDataAuthor();
-  getDataGenre();  
+  getDataGenre();
 },[])
 
   return(
@@ -169,16 +171,16 @@ useEffect (()=>{
                         {props.getAuthor.data.map((value) => {
                             return <option key={value.id_author} value={value.id_author}>{value.author}</option>
                           })}
-                      </Input>
+                    </Input>  
                     </FormGroup>
                     <FormGroup className={style.genre}>
                     <Label className={style.titlelable}>Genre</Label>
-                      <Input type="select" name="genre" value={genre} onChange={(e) => setGenre(e.target.value)} >
+                    <Input type="select" name="genre" value={genre} onChange={(e) => setGenre(e.target.value)} >
                       <option value="0">Pilih Genre</option>
                         {props.getGenre.data.map((value) => {
                             return <option key={value.id_genre} value={value.id_genre}>{value.genre}</option>
                           })}
-                      </Input>
+                    </Input>
                     </FormGroup>
                   <FormGroup style={{
                     position: 'relative',
@@ -191,7 +193,7 @@ useEffect (()=>{
                    </Form>
                   </div>
               </div>
-            </Popup> }            
+            </Popup> }           
             <li onClick={logout}>Logout</li>
           </ul>
       </div>

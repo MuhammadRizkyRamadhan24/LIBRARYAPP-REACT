@@ -112,8 +112,9 @@ class BookDetail extends Component{
         const token = this.props.auth.data.token;
         this.props.getAllAuthor(token).then(() => {
             this.setState({
-                
+                authors: this.props.getAuthor.data
             })
+            console.log(this.state.authors);
         })
         //   axios({
         //     method : "GET",
@@ -135,7 +136,10 @@ class BookDetail extends Component{
        getGenre = () => {
         const token = this.props.auth.data.token;
         this.props.getAllGenre(token).then(() => {
-            
+            this.setState({
+                genres: this.props.getGenre.data
+            })
+            console.log(this.state.genres);
         })
         // axios({
         //   method : "GET",
@@ -286,7 +290,6 @@ class BookDetail extends Component{
     }
 
     render(){
-        console.log(this.props.getBookId)
         return(
             <>
             {this.state.isLoadingContent ? <Skeleton /> : 

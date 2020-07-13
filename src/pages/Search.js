@@ -1,4 +1,4 @@
-import React, { Component , useState } from 'react';
+import React, { Component } from 'react';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Side';
 import Cards from '../components/card';
@@ -134,8 +134,6 @@ class Search extends Component{
                                     </Input>
                                     <Button color="warning" /*onClick={()=> this.props.history.push(`${this.props.location.search}&order=${this.state.order}&sort=${this.state.sort}`)}*/ onClick={this.sort}>Urutkan</Button>
                                 </Form>
-                                <Button className={style.buttonPrev} color="warning" disabled={disableButton} onClick={this.prevPage}>Prev</Button>
-                                <Button className={style.buttonNext} color="warning" onClick={this.nextPage}> Next</Button>
                             </Row>
                             {this.state.isLoadingCard ? 
                             <Row className={Style.content}><Skeleton/></Row>
@@ -150,8 +148,9 @@ class Search extends Component{
                             </Row>}
                             <Row>
                                 <Col md={12}>
-                                
-                                </Col> 
+                                    <Button className={style.buttonPrev} color="warning" disabled={disableButton} onClick={this.prevPage}>Prev</Button>
+                                    <Button className={style.buttonNext} color="warning" onClick={this.nextPage}> Next</Button>
+                                </Col>
                             </Row>
                         </Col>
                     </Row>

@@ -1,4 +1,4 @@
-import React, { Component , useState } from 'react';
+import React, { Component } from 'react';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Side';
 import { Container, Row, Col, Table} from 'reactstrap';
@@ -46,11 +46,11 @@ class History extends Component{
                                 <Navbar history={this.props.history} />
                                 </Col>
                             </Row>
-                            <Row style={{top: '15vh', position: 'relative',width: '100%'}}>
+                            <Row style={{top: '12vh', position: 'relative',width: '100%'}}>
                                 <Table className={Style.tableWrapper}>
                                     <thead>
                                         <tr>
-                                        <th>id</th>
+                                        <th>id borrow</th>
                                         <th>Username</th>
                                         <th>Book</th>
                                         <th>Status</th>

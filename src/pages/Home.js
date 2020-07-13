@@ -1,11 +1,9 @@
-import React, { Component , useState } from 'react';
+import React, { Component } from 'react';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Side';
 import Cards from '../components/card';
 import Carousel from '../components/carousel';
-import { Container, Row, Col, Card, CardText, CardBody } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { Container, Row, Col } from 'reactstrap';
 import style from '../styles/Home.module.css'
 
 import Slider from "react-slick";

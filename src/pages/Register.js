@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Container ,Button, Form, FormGroup, Label, Input, FormFeedback, Row } from 'reactstrap';
-import axios from 'axios';
+import { Col, Container ,Button, Form, FormGroup, Label, Input, Row } from 'reactstrap';
 import LeftLoginRegister from '../components/LeftLoginRegister';
 import RightLoginRegister from '../components/RightLoginRegister';
 import Swal from 'sweetalert2';

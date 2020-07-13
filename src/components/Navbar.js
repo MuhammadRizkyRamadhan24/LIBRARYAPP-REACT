@@ -2,14 +2,9 @@ import React, { Component } from 'react';
 import  '../styles/Navbar.css';
 import logo from '../assets/logo.png';
 import {
-    Collapse,
     Navbar,
     NavbarBrand,
     Nav,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
     Input,
     FormGroup,
     Col,
@@ -64,8 +59,8 @@ class NavBar extends Component{
 
                 <Col md='4'>
                   <div className='content-logo'>
-                    <Nav className="mr-auto" navbar>
-                        <NavbarBrand onClick={this.goToHome} className='nav-logo'><img className='logo' src={logo}/></NavbarBrand>
+                    <Nav navbar>
+                        <NavbarBrand onClick={this.goToHome} ><img src={logo}/></NavbarBrand>
                     </Nav>
                   </div>
                 </Col>

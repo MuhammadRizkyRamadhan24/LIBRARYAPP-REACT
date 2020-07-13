@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 export default class carousel extends Component {
     constructor(props){
         super(props)
-        console.log(this.props,'carousel');
     }
     render() {
         return (
